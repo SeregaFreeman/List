@@ -18,14 +18,14 @@ class List   //Создаем тип данных Список
     int count;
 public:
     List():Head(NULL),Tail(NULL)
-    {}; //Инициализируем адреса как пустые
+    {count=0;}; //Инициализируем адреса как пустые
     ~List(); //Деструктор
     void output() const; //Функция отображения списка на экране
     void onfront(); //вывод первого значения
     void onback(); //вывод последнего
     void push_back(Data x); //Функция добавления элементов в конец
     void push_front(Data x); //Функция добавления элементов в начало
-    void del(int pos); // Удаление узла
+    void del(); // Удаление узла
     void clear();
     Data pop_back(Data x); //Функция удаления последнего элемента
     Data pop_front(Data x); //Функция удаления первого элемента
