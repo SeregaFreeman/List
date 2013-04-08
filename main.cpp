@@ -7,6 +7,6 @@ using namespace std;
 int main ()
 {
  List lst; //Объявляем переменную, тип которой есть список
- lst.menu();
+ menu();
  return 0;
 }

@@ -25,10 +25,10 @@ public:
     void onback(); //вывод последнего
     void push_back(Data x); //Функция добавления элементов в конец
     void push_front(Data x); //Функция добавления элементов в начало
-    void menu(); // Вывод менюшки
     void del(int pos); // Удаление узла
     void clear();
     Data pop_back(Data x); //Функция удаления последнего элемента
     Data pop_front(Data x); //Функция удаления первого элемента
 };
+void menu(); // Вывод менюшки
 #endif

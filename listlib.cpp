@@ -101,15 +101,6 @@ Data List::pop_back(Data x)
         return member;
     }
     return -1;
-
-    /* if (Head!=NULL)  //Если список не пустой
-      {
-          Node *temp=Tail; //Обращаемся к концу списка с помощью вспомогательного указателя
-          Tail=Tail->Prev; //Сдвиг конца списка
-          delete temp; //Освобождение памяти от предыдущего звена списка
-          temp=NULL;
-          return x;
-      }*/
 }
 
 Data List::pop_front(Data x)
@@ -127,14 +118,6 @@ Data List::pop_front(Data x)
     }
     return -1;
 
-    /* if (Head!=NULL)  //Если список не пустой
-      {
-          Node *temp=Tail; //Обращаемся к концу списка с помощью вспомогательного указателя
-          Tail=Tail->Prev; //Сдвиг конца списка
-          delete temp; //Освобождение памяти от предыдущего звена списка
-          temp=NULL;
-          return x;
-      }*/
 }
 
 /*void List::del(Data pos)
@@ -192,7 +175,7 @@ Data List::pop_front(Data x)
 }
 */
 
-void List::menu()
+void menu()
 {
     List lst; //Объявляем переменную, тип которой есть список
     while(1)
