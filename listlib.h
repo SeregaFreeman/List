@@ -16,6 +16,7 @@ class List   //Создаем тип данных Список
 {
     Node *Head,*Tail; //Указатели на адреса начала списка и его конца
     int count;
+    int pos_begin, pos_begin1;
 public:
     List():Head(NULL),Tail(NULL)
     {count=0;}; //Инициализируем адреса как пустые
@@ -25,7 +26,8 @@ public:
     void onback(); //вывод последнего
     void push_back(Data x); //Функция добавления элементов в конец
     void push_front(Data x); //Функция добавления элементов в начало
-    void del(); // Удаление узла
+    void del(int pos_begin); // Удаление узла
+    void insert(int pos_begin1); //вставка элемента
     void clear();
     Data pop_back(Data x); //Функция удаления последнего элемента
     Data pop_front(Data x); //Функция удаления первого элемента

@@ -67,22 +67,21 @@ void List::output() const
         cout<<temp->x<<" "; //Выводим каждое считанное значение на экран
         temp=temp->Next; //Смена адреса на адрес следующего элемента
     }
-    cout<<"\n";
-    cout<<"Элементов в списке: "<<count<<endl;
+    cout<<endl<<"Элементов в списке: "<<count<<endl;
 }
 
 void List::onfront()
 {
     Node *temp=Head;
     if (temp)
-    cout<<temp->x<<" "<<endl;
+        cout<<temp->x<<" "<<endl;
 }
 
 void List::onback()
 {
     Node *temp=Tail;
     if (temp)
-    cout<<temp->x<<" "<<endl;
+        cout<<temp->x<<" "<<endl;
 }
 
 Data List::pop_back(Data x)
@@ -98,6 +97,7 @@ Data List::pop_back(Data x)
         temp=NULL;
         return member;
     }
+    count--;
     return -1;
 }
 
@@ -114,63 +114,68 @@ Data List::pop_front(Data x)
         temp=NULL;
         return member;
     }
+    count--;
     return -1;
-
 }
 
-void List::del()
+
+void List::insert(int pos_begin1)
+{
+    if(pos_begin1 < 1 || pos_begin1> count + 1)
+    {
+        cout << "Incorrect position !!!\n";
+        return;
+    }
+    int i = 1;
+    Node * Ins = Head;
+    while(i < pos_begin1)
+    {
+        Ins = Ins->Next;
+        i++;
+    }
+    Node * PrevIns = Ins->Prev;
+    Node * temp = new Node;
+    cout << "Введите новое число: ";
+    cin >> temp->x;
+    if(PrevIns != 0 && count != 1)
+        PrevIns->Next = temp;
+    temp->Next = Ins;
+    temp->Prev = PrevIns;
+    Ins->Prev = temp;
+
+    count++;
+}
+
+void List::del(int pos_begin)
 
 {
-    int pos;
-   // если параметр отсутствует или равен 0, то запрашиваем его
-
-
-       cout<<"Введите позицию: ";
-       cin>>pos;
-
-   // Позиция от 1 до Count?
-   if(pos < 1 || pos > count)
-   {
-      // Неверная позиция
-      cout<<"Неверная позиция!"<<endl;
-   }
-
-   // Счетчик
-   int i = 1;
-
-   Node * Del = Head;
-
-   while(i < pos)
-   {
-      // Доходим до элемента,
-      // который удаляется
-      Del = Del->Next;
-      i++;
-   }
-
-   // Доходим до элемента,
-   // который предшествует удаляемому
-   Node * PrevDel = Del->Prev;
-   // Доходим до элемента, который следует за удаляемым
-   Node * AfterDel = Del->Next;
-
-   // Если удаляем не голову
-   if(PrevDel != 0 && count != 1)
-      PrevDel->Next = AfterDel;
-   // Если удаляем не хвост
+    if(pos_begin < 1 || pos_begin > count)
+    {
+        cout<<"Неверная позиция!"<<endl;
+    }
+    int i = 1;
+    Node * Del = Head;
+    while(i < pos_begin)
+    {
+        Del = Del->Next;
+        i++;
+    }
+    Node * PrevDel = Del->Prev;
+    Node * AfterDel = Del->Next;
+    // Если удаляем не голову
+    if(PrevDel != 0 && count != 1)
+        PrevDel->Next = AfterDel;
+    // Если удаляем не хвост
     if(AfterDel != 0 && count != 1)
-      AfterDel->Prev = PrevDel;
-
-   // Удаляются крайние?
-   if(pos == 1)
-       Head = AfterDel;
-   if(pos == count)
-       Tail = PrevDel;
-
-   // Удаление элемента
-   delete Del;
-
-   count--;
+        AfterDel->Prev = PrevDel;
+    // Удаляются крайние?
+    if(pos_begin == 1)
+        Head = AfterDel;
+    if(pos_begin == count)
+        Tail = PrevDel;
+    // Удаление элемента
+    delete Del;
+    count--;
 }
 
 
@@ -181,70 +186,100 @@ void menu()
     while(cntinue)
     {
 
-    cout<<"Выберите действие: 1 - добавить элементы в конец списка, 2 - в начало, 3 - удалить с конца, 4 - удалить с начала, 5 - показать первый элемент, 6 - удаление конкретного элемента, 7 - очистка, 0 - выход"<<endl;
-    int choice, num, member;
-    cin>>choice;
-    switch (choice)
-    {
+        cout<<"Выберите действие:"<<endl<<"1 - добавить элементы в конец списка"<<endl<<"2 - в начало"<<endl<<"3 - удалить с конца"<<endl<<"4 - удалить с начала"<<endl<<"5 - показать первый элемент"<<endl<<"6 - удаление конкретных элементов"<<endl<<"7 - очистка списка"<<endl<<"8 - вставка элемента"<<endl<<"0 - выход"<<endl;
+        int choice, num, member;
+        cin>>choice;
+        switch (choice)
+        {
         case 1:
-         cout<<"Сколько элементов вы хотите добавить в конец?"<<endl;
-         cin>>num;
-         cout<<"Введите "<<num<<" элементов (в конец):"<<endl;
-         for (int i=0; i<num; i++)
-          {
-            cin>>member;
-            lst.push_back(member); //Добавляем в список элементы
-          }
-         cout<<"Список:"<<endl;
-         lst.output(); //Отображаем список на экране
-        break;
+            cout<<"Сколько элементов вы хотите добавить в конец?"<<endl;
+            cin>>num;
+            cout<<"Введите "<<num<<" элементов (в конец):"<<endl;
+            for (int i=0; i<num; i++)
+            {
+                cin>>member;
+                lst.push_back(member); //Добавляем в список элементы
+            }
+            cout<<"Список:"<<endl;
+            lst.output(); //Отображаем список на экране
+            break;
 
         case 2:
-         cout<<"Сколько элементов вы хотите добавить в начало?"<<endl;
-         cin>>num;
-         cout<<"Введите элементы (в начало):"<<endl;
-          for (int i=0; i<num; i++)
-           {
-            cin>>member;
-            lst.push_front(member); //Добавляем в список элементы
-           }
-         cout<<"Список:"<<endl;
-         lst.output(); //Отображаем список на экране
-        break;
+            cout<<"Сколько элементов вы хотите добавить в начало?"<<endl;
+            cin>>num;
+            cout<<"Введите элементы (в начало):"<<endl;
+            for (int i=0; i<num; i++)
+            {
+                cin>>member;
+                lst.push_front(member); //Добавляем в список элементы
+            }
+            cout<<"Список:"<<endl;
+            lst.output(); //Отображаем список на экране
+            break;
 
         case 3:
-         cout<<"Удаляем последний элемент..."<<endl;
-         lst.pop_back(member);
-         cout<<"Последний элемент удален:"<<endl;
-         lst.output();
-        break;
+            cout<<"Удаляем последний элемент..."<<endl;
+            lst.pop_back(member);
+            cout<<"Последний элемент удален:"<<endl;
+            lst.output();
+            break;
 
         case 4:
-         cout<<"Удаляем первый элемент..."<<endl;
-         lst.pop_front(member);
-         cout<<"Первый элемент удален:"<<endl;
-         lst.output();
-        break;
+            cout<<"Удаляем первый элемент..."<<endl;
+            lst.pop_front(member);
+            cout<<"Первый элемент удален:"<<endl;
+            lst.output();
+            break;
 
         case 5:
-         lst.onfront();
-        break;
+            lst.onfront();
+            break;
 
         case 6:
-         cout<<"Удаление конкретного элемента"<<endl;
-         lst.del();
-         lst.output();
+            int howmany;
+            cout<<"Удаление конкретного элемента"<<endl;
+            cout<<"Если вы хотите удалить один элемент, нажмите 1. Если хотите удалить промежуток, нажмите 2."<<endl;
+            cin>>howmany;
+            switch(howmany)
+            {
+                int pos_begin, pos_end;
+            case 1:
+                cout<<"Введите позицию: ";
+                cin>>pos_begin;
+                lst.del(pos_begin);
+                lst.output();
+                break;
+            case 2:
+                cout<<"Введите начальную позицию: ";
+                cin>>pos_begin;
+                cout<<"Введите конечную позицию: ";
+                cin>>pos_end;
+                for (int temp=((pos_end-pos_begin)+1); temp>0; temp--)
+                {
+                    lst.del(pos_begin);
+                }
+                lst.output();
+                break;
+            }
 
-         case 7:
-          lst.clear();
-          lst.output(); //Отображаем список на экране
-          cout<<"Список пуст"<<endl;
-         break;
+        case 7:
+            lst.clear();
+            lst.output(); //Отображаем список на экране
+            cout<<"Список пуст"<<endl;
+            break;
+
+        case 8:
+            int pos_begin1;
+            cout<<"Введите позицию вставки: ";
+            cin>>pos_begin1;
+            lst.insert(pos_begin1);
+            lst.output();
+            break;
 
         case 0:
-         break;
-    }
-    cout<<"Нажмите 1, если хотите продолжить или 0, если хотите прекратить"<<endl;
-    cin>>cntinue;
+            break;
+        }
+        cout<<"Нажмите 1, если хотите продолжить или 0, если хотите прекратить"<<endl;
+        cin>>cntinue;
     }
 }
