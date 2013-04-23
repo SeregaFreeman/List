@@ -95,9 +95,11 @@ Data List::pop_back(Data x)
         Tail->Next=NULL;
         delete temp;
         temp=NULL;
+        count--;
         return member;
+
     }
-    count--;
+
     return -1;
 }
 
@@ -112,9 +114,11 @@ Data List::pop_front(Data x)
         temp->Prev=NULL;
         delete temp;
         temp=NULL;
+        count--;
         return member;
+
     }
-    count--;
+
     return -1;
 }
 
